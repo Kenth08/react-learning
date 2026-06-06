@@ -1,16 +1,5 @@
-function MyButton() {
-  return (
-    <button>
-      I'm a button
-    </button>
-  );
-}
+import LoginPage from './LoginPage'
 
-export default function MyApp() {
-  return (
-    <div>
-      <h1>Welcome to my app</h1>
-      <MyButton />
-    </div>
-  );
+export default function App() {
+  return <LoginPage />
 }
