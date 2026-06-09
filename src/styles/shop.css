@@ -1,0 +1,133 @@
+/* ==========================================================================
+   1. MAIN CONTROLLERS & PAGE COLOR SCHEMES
+   ========================================================================== */
+.shop-page {
+  min-height: 100vh;
+  background-color: #0c0c0e; 
+  color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+
+}
+.shop-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 140px 6% 60px 6%; /* Shifts content safely below your fixed Navbar */
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY HEADERS (HIGH-CONTRAST VISIBILITY)
+   ========================================================================== */
+.shop-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.shop-title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff; /* Explicitly forces white text color */
+}
+
+.shop-subtitle {
+  font-size: 1.1rem;
+  color: #a1a1aa; /* Smooth zinc-gray subtext */
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. RESPONSIVE GRID GRID MATRIX
+   ========================================================================== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+}
+
+/* ==========================================================================
+   4. LUXURY CARD BLOCKS
+   ========================================================================== */
+.product-card {
+  background: #141417;
+  border: 1px solid #232329;
+  border-radius: 28px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: #3f3f46;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Sneaker display window inside the card */
+.product-image-wrapper {
+  background: var(--card-glow); /* Injected dynamically from your JSX array */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.product-image {
+  width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.35));
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.06) rotate(-4deg); /* Beautiful reactive shift when card is hovered */
+}
+
+/* ==========================================================================
+   5. CARD CONTENT ELEMENTS & BUTTONS
+   ========================================================================== */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: #ffffff;
+}
+
+.product-price {
+  font-size: 1.05rem;
+  color: #a1a1aa;
+  font-weight: 500;
+  margin: 0 0 1.25rem 0;
+}
+
+.btn-buy {
+  width: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: auto; /* Pushes the checkout trigger button cleanly to the card bottom line */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-buy:hover {
+  background-color: #e4e4e7;
+  transform: scale(1.02);
+}
