@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import LandingPage from './LandingPage'
-import LoginPage from './LoginPage'
+import LandingPage from './pages/LandingPage'
+import LoginPage from './pages/LoginPage'
 
 export default function App() {
   return (

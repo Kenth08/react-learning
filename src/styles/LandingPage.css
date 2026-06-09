@@ -1,23 +1,241 @@
+/* ==========================================================================
+   1. GLOBAL RESET & MASTER WINDOW LAYER
+   ========================================================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;       /* Hard locks the browser canvas window */
+  overflow: hidden;    /* Prevents the master window from ever showing scrollbars */
+}
+
+/* ==========================================================================
+   2. MAIN SITE WRAPPERS & CONTAINERS
+   ========================================================================== */
 .landing {
-  min-height: 100vh;
+  height: 100vh;       /* Keeps everything nested strictly inside the viewport */
   display: flex;
   flex-direction: column;
   background: #f7f9fc;
+  /* Smooth color morph when background variables shift */
+  transition: background-color 0.4s ease; 
 }
 
 .hero-container {
-  flex: 1;
+  flex: 1;             /* Naturally fills the layout space left under your Navbar */
+  overflow: hidden;    /* Prevents child animations from causing micro-scrolls */
+  /* Uses dynamic variable injected from React state */
+  background: var(--dynamic-bg); 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: 0 5%;
+  box-sizing: border-box;
+  transition: background 0.4s ease-in-out; /* Makes background transition smooth */
 }
 
 .hero {
-  text-align: center;
-  max-width: 900px;
-  padding: 48px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1300px;
+  gap: 4rem;
+  position: relative;
+}
+
+/* ==========================================================================
+   3. LEFT COLUMN: TEXT PANELS & MARKETING TYPOGRAPHY
+   ========================================================================== */
+.hero-left {
+  flex: 1;
+  color: #ffffff;
+  text-align: left;
+  z-index: 5;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.hero-title span {
+  color: #f1faee;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 480px;
+}
+
+/* ==========================================================================
+   4. INTERACTIVE ACTIONS & PRIMED BUTTON SETTINGS
+   ========================================================================== */
+.hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.btn-primary {
+  text-decoration: none;
+  background-color: #ffffff;
+  /* Primary text color updates to match active layout theme color */
+  color: var(--dynamic-bg);
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 50px;
+  display: inline-block;
+  transition: background-color 0.2s ease, color 0.4s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ffffff; /* Keeps the background真实 white */
+  color: var(--dynamic-bg);  /* Keeps the text matching your active shoe color */
+  
+  /* Adds a sleek, premium white ambient glow under the button */
+  box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.4); 
+  
+  /* Makes the button lift up slightly more when hovered */
+  transform: translateY(-3px) scale(1.02); 
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #ffffff;
+  color: var(--dynamic-bg);
+}
+
+/* ==========================================================================
+   5. RIGHT COLUMN: VISUAL ARTWORK CANVAS
+   ========================================================================== */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 550px;
+  max-width: 50%;     /* Keeps the right container strictly containing half the screen width */
+  overflow: visible;  /* Allows the shoe shadow to spread out comfortably */
+}
+
+/* ADDED BACK: This renders the background accent ring element behind your shoes */
+.shoe-circle {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  /* Dynamic overlay background changes opacity elegantly per variant */
+  background: var(--dynamic-circle);
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.background-text {
+  position: absolute;
+  font-size: 27rem;
+  letter-spacing: -0.1em;
+  font-weight: 900;
+  color: #ffffff;
+  
+  /* Now shifts dynamically to 0.38 for red, and 0.22 for yellow/green */
+  opacity: var(--dynamic-text-opacity); 
+  
+  mix-blend-mode: overlay; 
+  z-index: 2;
+  user-select: none;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease-in-out; /* Makes the text fade smoothly on transition */
+}
+
+.hero-image {
+  width: 650px;
+  position: relative;
+  z-index: 3;
+  filter: drop-shadow(0px 25px 35px rgba(0, 0, 0, 0.35));
+}
+
+/* ==========================================================================
+   6. CAROUSEL SEAMLESS SIDE NAVIGATION CHEVRONS
+   ========================================================================== */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background: transparent;
+  border: none;
+  outline: none;
+  
+  color: rgba(255, 255, 255, 0.6); /* Slightly transparent white by default */
+  font-size: 2.5rem;              /* Large text icon size */
+  font-weight: 300;               /* Thin minimalist stroke weight */
+  cursor: pointer;
+  z-index: 20;
+  transition: color 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.nav-arrow.left {
+  left: -30px; /* Moves arrow out into the column gap */
+}
+
+.nav-arrow.right {
+  right: -40px; /* Pushes arrow toward the screen border */
+}
+
+.nav-arrow:hover {
+  color: #ffffff; /* Illuminates fully on hover */
+  background: transparent;
+  transform: translateY(-50%) scale(1.15); 
+}
+
+.nav-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE MEDIA BREAKPOINTS (MOBILE & TABLET OPTIMIZATIONS)
+   ========================================================================== */
+@media (max-width: 968px) {
+  .hero {
+    flex-direction: column-reverse; /* Flip alignment structure for smartphones */
+    text-align: center;
+    gap: 2rem;
+  }
+  .hero-left {
+    text-align: center;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .background-text {
+    font-size: 15rem; /* Scales branding down to protect viewport bounds */
+  }
+  .hero-image {
+    width: 100%;
+    max-width: 450px;
+  }
 }

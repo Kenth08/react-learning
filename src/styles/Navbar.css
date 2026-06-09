@@ -1,26 +1,63 @@
 .navbar {
   width: 100%;
-  padding: 16px 24px;
+  padding: 24px 5%; /* Matches the 5% side padding of your hero section perfectly */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  
+  /* CHANGED: Made background completely transparent & removed the gray border line */
+  background: transparent; 
+  border-bottom: none;
+  
+  /* CRITICAL: Positions the navbar on top of your background color instead of pushing it down */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100; 
   box-sizing: border-box;
 }
 
 .navbar-brand {
-  font-weight: 700;
-  color: #16a34a;
+  font-size: 1.5rem;
+  font-weight: 900;
+  /* CHANGED: Swapped green out for crisp white to look premium against all background themes */
+  color: #ffffff; 
+  letter-spacing: -1px;
 }
 
 .navbar-links {
   display: flex;
-  gap: 16px;
+  gap: 2rem; /* Wider gaps look more modern */
+  align-items: center;
 }
 
 .navbar-links a {
   text-decoration: none;
-  color: #1f2937;
+  color: rgba(255, 255, 255, 0.8); /* Faint off-white so it sits softly in the background */
   font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+/* Subtle link hover state */
+.navbar-links a:hover {
+  color: #ffffff; 
+}
+
+/* Premium capsule styling for the Login Link */
+.navbar-links .nav-login-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 24px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px); /* Gives it a premium frosted-glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-links .nav-login-btn:hover {
+  background-color: #ffffff;
+  /* Note: Your landing page dynamic background variable (--dynamic-bg) transfers automatically here! */
+  color: var(--dynamic-bg); 
+  transform: scale(1.03);
 }
