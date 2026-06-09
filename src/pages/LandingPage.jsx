@@ -94,7 +94,7 @@ export default function LandingPage() {
       {/* MAIN HERO LANDING SECTION WRAPPER */}
       <main className="hero-container">
         
-        {/* HERO CONTENT FRAME - Dynamic flex orientation flips elements gracefully on small monitors */}
+        {/* HERO CONTENT FRAME */}
         <header className="hero">
           
           {/* ==========================================================================
@@ -135,6 +135,9 @@ export default function LandingPage() {
               <a href="/login" className="btn-primary">
                 Get Started
               </a>
+              <a href="/shop" className="btn-secondary">
+    Shop Now
+  </a>
             </motion.div>
           </div>
 
@@ -143,16 +146,19 @@ export default function LandingPage() {
              ========================================================================== */}
           <div className="hero-right">
             
-            {/* Minimalist Left Navigation Chevron Arrow */}
-            <button
+            {/* Minimalist Left Navigation Chevron Arrow with Magnetic Hover */}
+            <motion.button
               className="nav-arrow left"
               onClick={prevShoe}
               aria-label="Previous Shoe"
+              whileHover={{ scale: 1.25, x: -5 }}
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: "spring", stiffness: 500, damping: 15 }}
             >
               &lt;
-            </button>
+            </motion.button>
 
-                  {/* Animated Background Circle Overlay */}
+            {/* Animated Background Circle Overlay */}
             <motion.div 
               className="shoe-circle"
               animate={{ 
@@ -165,7 +171,8 @@ export default function LandingPage() {
                 ease: "easeInOut" 
               }}
             />
-            {/* FIXED: Removed AnimatePresence so the text stays perfectly locked in place */}
+
+            {/* Static Backdrop Text Layer */}
             <div className="background-text">
               NIKE
             </div>
@@ -195,14 +202,17 @@ export default function LandingPage() {
               />
             </AnimatePresence>
 
-            {/* Minimalist Right Navigation Chevron Arrow */}
-            <button
+            {/* Minimalist Right Navigation Chevron Arrow with Magnetic Hover */}
+            <motion.button
               className="nav-arrow right"
               onClick={nextShoe}
               aria-label="Next Shoe"
+              whileHover={{ scale: 1.25, x: 5 }}
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: "spring", stiffness: 500, damping: 15 }}
             >
               &gt;
-            </button>
+            </motion.button>
           </div>
 
         </header>
