@@ -1,30 +1,25 @@
 /* ==========================================================================
-   1. GLOBAL RESET & MASTER WINDOW LAYER
+   1. LAYOUT CONTROLS BASELINE
    ========================================================================== */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;       /* Hard locks the browser canvas window */
-  overflow: hidden;    /* Prevents the master window from ever showing scrollbars */
+  height: 100%;
+  overflow: hidden; 
 }
 
-/* ==========================================================================
-   2. MAIN SITE WRAPPERS & CONTAINERS
-   ========================================================================== */
 .landing {
-  height: 100vh;       /* Keeps everything nested strictly inside the viewport */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: #f7f9fc;
-  /* Smooth color morph when background variables shift */
   transition: background-color 0.4s ease; 
 }
 
 .hero-container {
-  flex: 1;             /* Naturally fills the layout space left under your Navbar */
-  overflow: hidden;    /* Prevents child animations from causing micro-scrolls */
-  /* Uses dynamic variable injected from React state */
+  flex: 1;
+  overflow: hidden;
   background: var(--dynamic-bg); 
   display: flex;
   justify-content: center;
@@ -32,7 +27,7 @@ html, body {
   width: 100%;
   padding: 0 5%;
   box-sizing: border-box;
-  transition: background 0.4s ease-in-out; /* Makes background transition smooth */
+  transition: background 0.4s ease-in-out; 
 }
 
 .hero {
@@ -47,7 +42,7 @@ html, body {
 }
 
 /* ==========================================================================
-   3. LEFT COLUMN: TEXT PANELS & MARKETING TYPOGRAPHY
+   2. LEFT COLUMN: TEXT PANELS & TYPOGRAPHY
    ========================================================================== */
 .hero-left {
   flex: 1;
@@ -78,7 +73,7 @@ html, body {
 }
 
 /* ==========================================================================
-   4. INTERACTIVE ACTIONS & PRIMED BUTTON SETTINGS
+   3. INTERACTIVE BUTTON STYLING
    ========================================================================== */
 .hero-cta-group {
   display: flex;
@@ -89,7 +84,6 @@ html, body {
 .btn-primary {
   text-decoration: none;
   background-color: #ffffff;
-  /* Primary text color updates to match active layout theme color */
   color: var(--dynamic-bg);
   padding: 14px 36px;
   font-size: 1rem;
@@ -100,35 +94,12 @@ html, body {
 }
 
 .btn-primary:hover {
-  background-color: #ffffff; /* Keeps the background真实 white */
-  color: var(--dynamic-bg);  /* Keeps the text matching your active shoe color */
-  
-  /* Adds a sleek, premium white ambient glow under the button */
   box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.4); 
-  
-  /* Makes the button lift up slightly more when hovered */
   transform: translateY(-3px) scale(1.02); 
 }
 
-.btn-secondary {
-  background-color: transparent;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background-color: #ffffff;
-  color: var(--dynamic-bg);
-}
-
 /* ==========================================================================
-   5. RIGHT COLUMN: VISUAL ARTWORK CANVAS
+   4. BACKGROUND CANVAS GRAPHICS & BLENDED TYPOGRAPHY
    ========================================================================== */
 .hero-right {
   flex: 1;
@@ -137,17 +108,15 @@ html, body {
   align-items: center;
   position: relative;
   min-height: 550px;
-  max-width: 50%;     /* Keeps the right container strictly containing half the screen width */
-  overflow: visible;  /* Allows the shoe shadow to spread out comfortably */
+  max-width: 50%;
+  overflow: visible;
 }
 
-/* ADDED BACK: This renders the background accent ring element behind your shoes */
 .shoe-circle {
   position: absolute;
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  /* Dynamic overlay background changes opacity elegantly per variant */
   background: var(--dynamic-circle);
   z-index: 1;
   transition: background 0.4s ease;
@@ -159,15 +128,12 @@ html, body {
   letter-spacing: -0.1em;
   font-weight: 900;
   color: #ffffff;
-  
-  /* Now shifts dynamically to 0.38 for red, and 0.22 for yellow/green */
   opacity: var(--dynamic-text-opacity); 
-  
   mix-blend-mode: overlay; 
   z-index: 2;
   user-select: none;
   transform: translateY(-10px);
-  transition: opacity 0.4s ease-in-out; /* Makes the text fade smoothly on transition */
+  transition: opacity 0.4s ease-in-out; 
 }
 
 .hero-image {
@@ -178,20 +144,18 @@ html, body {
 }
 
 /* ==========================================================================
-   6. CAROUSEL SEAMLESS SIDE NAVIGATION CHEVRONS
+   5. NAVIGATION CHEVRONS STYLING
    ========================================================================== */
 .nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  
   background: transparent;
   border: none;
   outline: none;
-  
-  color: rgba(255, 255, 255, 0.6); /* Slightly transparent white by default */
-  font-size: 2.5rem;              /* Large text icon size */
-  font-weight: 300;               /* Thin minimalist stroke weight */
+  color: rgba(255, 255, 255, 0.6); 
+  font-size: 2.5rem;
+  font-weight: 300;               
   cursor: pointer;
   z-index: 20;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -199,17 +163,16 @@ html, body {
 }
 
 .nav-arrow.left {
-  left: -30px; /* Moves arrow out into the column gap */
+  left: -30px;
 }
 
 .nav-arrow.right {
-  right: -40px; /* Pushes arrow toward the screen border */
+  right: -40px;
 }
 
 .nav-arrow:hover {
-  color: #ffffff; /* Illuminates fully on hover */
-  background: transparent;
-  transform: translateY(-50%) scale(1.15); 
+  color: #ffffff; 
+  transform: translateY(-50%) scale(1.2);
 }
 
 .nav-arrow:active {
@@ -217,25 +180,99 @@ html, body {
 }
 
 /* ==========================================================================
-   7. RESPONSIVE MEDIA BREAKPOINTS (MOBILE & TABLET OPTIMIZATIONS)
+   6. RESPONSIVE DESIGN (BREAKPOINTS FOR PORTABLE DEVICES)
    ========================================================================== */
-@media (max-width: 968px) {
-  .hero {
-    flex-direction: column-reverse; /* Flip alignment structure for smartphones */
-    text-align: center;
-    gap: 2rem;
+@media (max-width: 1024px) {
+  html, body {
+    overflow-y: auto;
   }
+
+  .landing {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero-container {
+    padding: 120px 6% 40px 6%;
+  }
+
+  .hero {
+    flex-direction: column-reverse;
+    gap: 3rem;
+  }
+
   .hero-left {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .hero-title {
+    font-size: 2.6rem;
+  }
+
   .hero-cta-group {
     justify-content: center;
   }
-  .background-text {
-    font-size: 15rem; /* Scales branding down to protect viewport bounds */
+
+  .hero-right {
+    max-width: 100%;
+    min-height: 380px;
   }
+
+  .shoe-circle {
+    width: 320px;
+    height: 320px;
+  }
+
+  .background-text {
+    font-size: 14rem;
+  }
+
   .hero-image {
     width: 100%;
-    max-width: 450px;
+    max-width: 380px;
+  }
+
+  .nav-arrow {
+    top: auto;
+    bottom: -20px;
+    transform: none;
+  }
+
+  .nav-arrow:hover, .nav-arrow:active {
+    transform: scale(1.15) !important;
+  }
+
+  .nav-arrow.left {
+    left: 25%;
+  }
+
+  .nav-arrow.right {
+    right: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .shoe-circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .hero-image {
+    max-width: 290px;
+  }
+
+  .nav-arrow.left {
+    left: 15%;
+  }
+
+  .nav-arrow.right {
+    right: 15%;
   }
 }

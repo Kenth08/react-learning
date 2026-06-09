@@ -16,17 +16,19 @@ import "../styles/LandingPage.css";
 import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
+  // Checks viewport sizing to downscale structural animation steps safely on mobile devices
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+
   // ==========================================================================
   // 3. SHOE THEMES CONFIGURATION DATA
   // ==========================================================================
-  // Groups assets with their custom background colors, accent circles, and styles.
   const shoeThemes = [
     {
       image: redShoe,
       bgTheme: "#d90429",
       circleColor: "rgba(255, 0, 0, 0.15)",
       customStyle: {},
-      textOpacity: 0.38, // Boosts visibility against the red canvas
+      textOpacity: 0.38,
       shoeName: "Air Jordan 1 Low 'Bred'",
       price: "$115",
     },
@@ -35,7 +37,7 @@ export default function LandingPage() {
       bgTheme: "#eab308",
       circleColor: "rgba(255, 255, 255, 0.2)",
       customStyle: { transform: "scale(1.12) translateY(-15px)" },
-      textOpacity: 0.22, // Perfect sweet spot for yellow
+      textOpacity: 0.22,
       shoeName: "Air Jordan 1 Low 'Chicago'",
       price: "$115",
     },
@@ -44,39 +46,34 @@ export default function LandingPage() {
       bgTheme: "#1b4332",
       circleColor: "rgba(255, 255, 255, 0.15)",
       customStyle: {},
-      textOpacity: 0.22, // Perfect sweet spot for green
+      textOpacity: 0.22,
       shoeName: "Air Jordan 1 Low 'pilipinas'",
       price: "$115",
     },
     {
       image: purpleShoe,
-      // CHANGED: Swapped out the indigo-blue for a true, rich Court Purple
-      bgTheme: "#4a148c", // Deep, authentic royal violet/purple
+      bgTheme: "#4a148c", 
       circleColor: "rgba(255, 255, 255, 0.12)",
       customStyle: { transform: "scale(1.08) translateY(-10px)" },
-      textOpacity: 0.22, // Keeps text crisp against the dark royal purple background
+      textOpacity: 0.22,
       shoeName: "Air Jordan 1 Low 'Court Purple'",
       price: "$115",
     },
   ];
+
   // ==========================================================================
   // 4. STATE MANAGEMENT & CAROUSEL LOGIC
   // ==========================================================================
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Cycle forward to the next shoe theme index (loops back to 0 at the end)
   const nextShoe = () => {
     setCurrentIndex((prev) => (prev + 1) % shoeThemes.length);
   };
 
-  // Cycle backward to the previous shoe theme index (loops to the last item at 0)
   const prevShoe = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + shoeThemes.length) % shoeThemes.length,
-    );
+    setCurrentIndex((prev) => (prev - 1 + shoeThemes.length) % shoeThemes.length);
   };
 
-  // Quick pointer to extract the active theme matching our index
   const current = shoeThemes[currentIndex];
 
   // ==========================================================================
@@ -86,9 +83,9 @@ export default function LandingPage() {
     <div
       className="landing"
       style={{
-        // Dynamically binds CSS variables inline to switch the page theme instantly
         "--dynamic-bg": current.bgTheme,
         "--dynamic-circle": current.circleColor,
+        "--dynamic-text-opacity": current.textOpacity,
       }}
     >
       {/* GLOBAL APPLICATION HEADER NAVIGATION */}
@@ -96,15 +93,19 @@ export default function LandingPage() {
 
       {/* MAIN HERO LANDING SECTION WRAPPER */}
       <main className="hero-container">
+        
+        {/* HERO CONTENT FRAME - Dynamic flex orientation flips elements gracefully on small monitors */}
         <header className="hero">
+          
           {/* ==========================================================================
-             LEFT SIDE COLUMN: MARKETING COPYWRITING & TEXT CALLS TO ACTION
+             LEFT SIDE COLUMN: TEXT PANEL STYLINGS
              ========================================================================== */}
           <div className="hero-left">
-            {/* Wrap the typography section in AnimatePresence for text transitions */}
+            
+            {/* Smooth Heading Text Switcher */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex} /* Forces re-animation on arrow click */
+                key={currentIndex} 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -124,8 +125,6 @@ export default function LandingPage() {
               rotation.
             </p>
 
-            {/* ... rest of your code ... */}
-
             {/* Main Interactive Button Panel */}
             <motion.div
               className="hero-cta-group"
@@ -140,9 +139,10 @@ export default function LandingPage() {
           </div>
 
           {/* ==========================================================================
-             RIGHT SIDE COLUMN: INTERACTIVE VISUAL CANVAS WITH COMPACT NAV ARROWS
+             RIGHT SIDE COLUMN: INTERACTIVE VISUAL CANVAS WITH NAVIGATION CHEVRONS
              ========================================================================== */}
           <div className="hero-right">
+            
             {/* Minimalist Left Navigation Chevron Arrow */}
             <button
               className="nav-arrow left"
@@ -152,32 +152,46 @@ export default function LandingPage() {
               &lt;
             </button>
 
-            {/* Layered Branding Backdrop Circles & Bold Typography */}
-            <div className="shoe-circle"></div>
-            <div className="background-text">NIKE</div>
+                  {/* Animated Background Circle Overlay */}
+            <motion.div 
+              className="shoe-circle"
+              animate={{ 
+                scale: [1, 1.05, 1],
+                opacity: [0.9, 1, 0.9]
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+            />
+            {/* FIXED: Removed AnimatePresence so the text stays perfectly locked in place */}
+            <div className="background-text">
+              NIKE
+            </div>
 
-            {/* Framer Motion Layout Container handles sequential component swapping */}
+            {/* Core Sneaker Artwork Frame */}
             <AnimatePresence mode="wait">
               <motion.img
-                key={currentIndex} // Using active index key tells React to remount & slide on state change
+                key={currentIndex} 
                 src={current.image}
                 alt="Shoes"
                 className="hero-image"
-                style={current.customStyle} // Dynamically injects asset size normalization styles
-                initial={{ y: 50, rotate: -10, opacity: 0, scale: 0.95 }}
+                style={current.customStyle} 
+                initial={{ y: isMobile ? 25 : 50, rotate: isMobile ? -4 : -10, opacity: 0, scale: 0.95 }}
                 animate={{ y: 0, rotate: 0, opacity: 1, scale: 1 }}
                 exit={{
                   opacity: 0,
                   scale: 0.95,
                   y: -30,
-                  transition: { duration: 0.1 }, // Instant duration prevents old shoe ghosting artifact
+                  transition: { duration: 0.1 }, 
                 }}
                 transition={{
-                  duration: 0.35, // Smooth ease transition entry timing
+                  duration: 0.35, 
                   type: "tween",
                   ease: "easeOut",
                 }}
-                whileHover={{ scale: 1.04, rotate: -2 }} // Micro hover movement response
+                whileHover={isMobile ? {} : { scale: 1.04, rotate: -2 }} 
               />
             </AnimatePresence>
 
@@ -190,6 +204,7 @@ export default function LandingPage() {
               &gt;
             </button>
           </div>
+
         </header>
       </main>
     </div>
