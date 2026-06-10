@@ -1,35 +1,44 @@
 /* ==========================================================================
    1. LAYOUT CONTROLS BASELINE
    ========================================================================== */
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; 
+  overflow-y: auto !important; 
+  overflow-x: hidden;           
+  scroll-behavior: smooth; 
 }
 
-.landing {
-  height: 100vh;
+.landing-page-wrapper {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f7f9fc;
-  transition: background-color 0.4s ease; 
+  
+  /* FIXED: Assigned your dynamic variable to the global page wrapper here! 
+     Now the entire document surface area shifts theme colors seamlessly */
+  background: var(--dynamic-bg); 
+  transition: background-color 0.4s ease-in-out; 
 }
 
 .hero-container {
-  flex: 1;
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  flex-shrink: 0; 
   overflow: hidden;
-  background: var(--dynamic-bg); 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 0 5%;
   box-sizing: border-box;
-  transition: background 0.4s ease-in-out; 
+  
+  /* CHANGED: Removed the independent background selector from here so 
+     it flows naturally from the global wrapper background color above! */
+  background: transparent; 
 }
-
 .hero {
   display: flex;
   flex-direction: row;
@@ -97,30 +106,25 @@ html, body {
   box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.4); 
   transform: translateY(-3px) scale(1.02); 
 }
+
 .btn-secondary {
-  text-decoration: none; /* Crucial: Keeps the anchor tag links from adding default text underlines */
+  text-decoration: none; 
   background-color: transparent;
   color: #ffffff;
   border: 2px solid #ffffff;
-  padding: 12px 32px; /* Set to 12px to match button height factoring in the 2px top/bottom border */
+  padding: 12px 32px; 
   font-size: 1rem;
   font-weight: 700;
   border-radius: 50px;
   display: inline-block;
   cursor: pointer;
-  
-  /* CHANGED: Match the exact same ease-in/out speeds as your primary button */
   transition: background-color 0.2s ease, color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-secondary:hover {
   background-color: #ffffff;
   color: var(--dynamic-bg);
-  
-  /* ADDED: Adds the matching translucent white ambient glow beneath the outline button frame */
   box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.4); 
-  
-  /* ADDED: Forces the outline button to scale up and lift 3px exactly like your primary button does */
   transform: translateY(-3px) scale(1.02); 
 }
 
@@ -188,13 +192,8 @@ html, body {
   user-select: none;
 }
 
-.nav-arrow.left {
-  left: -30px;
-}
-
-.nav-arrow.right {
-  right: -40px;
-}
+.nav-arrow.left { left: -30px; }
+.nav-arrow.right { right: -40px; }
 
 .nav-arrow:hover {
   color: #ffffff; 
@@ -206,18 +205,9 @@ html, body {
 }
 
 /* ==========================================================================
-   6. RESPONSIVE DESIGN (BREAKPOINTS FOR PORTABLE DEVICES)
+   6. RESPONSIVE DESIGN BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1024px) {
-  html, body {
-    overflow-y: auto;
-  }
-
-  .landing {
-    height: auto;
-    min-height: 100vh;
-  }
-
   .hero-container {
     padding: 120px 6% 40px 6%;
   }
@@ -234,32 +224,12 @@ html, body {
     align-items: center;
   }
 
-  .hero-title {
-    font-size: 2.6rem;
-  }
-
-  .hero-cta-group {
-    justify-content: center;
-  }
-
-  .hero-right {
-    max-width: 100%;
-    min-height: 380px;
-  }
-
-  .shoe-circle {
-    width: 320px;
-    height: 320px;
-  }
-
-  .background-text {
-    font-size: 14rem;
-  }
-
-  .hero-image {
-    width: 100%;
-    max-width: 380px;
-  }
+  .hero-title { font-size: 2.6rem; }
+  .hero-cta-group { justify-content: center; }
+  .hero-right { max-width: 100%; min-height: 380px; }
+  .shoe-circle { width: 320px; height: 320px; }
+  .background-text { font-size: 14rem; }
+  .hero-image { width: 100%; max-width: 380px; }
 
   .nav-arrow {
     top: auto;
@@ -271,34 +241,15 @@ html, body {
     transform: scale(1.15) !important;
   }
 
-  .nav-arrow.left {
-    left: 25%;
-  }
-
-  .nav-arrow.right {
-    right: 25%;
-  }
+  .nav-arrow.left { left: 25%; }
+  .nav-arrow.right { right: 25%; }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.1rem;
-  }
-
-  .shoe-circle {
-    width: 250px;
-    height: 250px;
-  }
-
-  .hero-image {
-    max-width: 290px;
-  }
-
-  .nav-arrow.left {
-    left: 15%;
-  }
-
-  .nav-arrow.right {
-    right: 15%;
-  }
+  .hero-title { font-size: 2.1rem; }
+  .shoe-circle { width: 250px; height: 250px; }
+  .hero-image { max-width: 290px; }
+  .nav-arrow.left { left: 15%; }
+  .nav-arrow.right { right: 15%; }
 }
+

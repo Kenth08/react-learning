@@ -1,76 +1,116 @@
-import React, { useEffect } from 'react'; // ADDED: useEffect hook
-import Navbar from '../components/Navbar';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useCart } from '../context/CartContext';
+import { products } from '../data/products';
 import '../styles/shop.css';
 
-// Import your shoe images so they can be displayed on the cards
-import redShoe from "../assets/choes-red.png";
-import yellowShoe from "../assets/choes-yellow.png";
-import greenShoe from "../assets/choes-green.png";
-import purpleShoe from "../assets/choes-purple.png";
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.05 }
+  }
+};
 
-export default function Shop() {
-  
-  // ==========================================================================
-  // GLOBAL RESET OVERRIDE: Forces the browser window to allow scrolling
-  // ==========================================================================
-  useEffect(() => {
-    // 1. Calculate the exact width of the scrollbar dynamically
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    
-    // 2. Inject that pixel value into a CSS variable so the fixed navbar can read it
-    document.documentElement.style.setProperty('--removed-body-scrollbar-space', `${scrollbarWidth}px`);
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  show:   { opacity: 1, y: 0,  scale: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+};
 
-    // 3. Unfreeze the screen views
-    document.documentElement.style.overflow = "unset";
-    document.body.style.overflow = "unset";
+function ProductCard({ product }) {
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
 
-    // Clean-up function: Reset everything smoothly if they head back home
-    return () => {
-      document.documentElement.style.removeProperty('--removed-body-scrollbar-space');
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
-    };
-  }, []);
-  // Array holding all 4 sneaker models
-  const products = [
-    { id: 1, name: "Air Jordan 1 Low 'Bred'", price: "$115", image: redShoe, glow: "rgba(217, 4, 41, 0.15)" },
-    { id: 2, name: "Air Jordan 1 Low 'Chicago'", price: "$115", image: yellowShoe, glow: "rgba(234, 179, 8, 0.15)" },
-    { id: 3, name: "Air Jordan 1 Low 'Pilipinas'", price: "$115", image: greenShoe, glow: "rgba(27, 67, 50, 0.2)" },
-    { id: 4, name: "Air Jordan 1 Low 'Court Purple'", price: "$115", image: purpleShoe, glow: "rgba(74, 20, 140, 0.2)" },
-  ];
+  const handleAddToCart = () => {
+    addToCart(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1200);
+  };
 
   return (
-    <div className="shop-page">
-      {/* Global Navigation Header */}
-      <Navbar />
+    <motion.div className="product-card" variants={cardVariants} whileHover={{ y: -8 }}>
+      <Link to={`/product/${product.id}`}>
+        <motion.div
+          className="product-image-wrapper"
+          style={{ backgroundColor: product.tileBg }}
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.img
+            src={product.image}
+            alt={product.name}
+            className="product-image"
+            whileHover={{ scale: 1.08, rotate: -4 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+          />
+        </motion.div>
+      </Link>
 
+      <div className="product-details">
+        <h3 className="product-name">{product.name}</h3>
+        <p className="product-price">{product.price}</p>
+
+        <div className="product-actions-group">
+          <motion.button
+            className="btn-buy-now"
+            style={{ backgroundColor: product.tileBg }}
+            whileTap={{ scale: 0.94 }}
+            onClick={handleAddToCart}
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={added ? 'added' : 'buy'}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18 }}
+              >
+                {added ? 'Added!' : 'Add to Cart'}
+              </motion.span>
+            </AnimatePresence>
+          </motion.button>
+
+          <Link to={`/product/${product.id}`} style={{ flex: 1 }}>
+            <motion.button
+              className="btn-view-details"
+              style={{ backgroundColor: product.tileBg, width: '100%' }}
+              whileTap={{ scale: 0.94 }}
+            >
+              View Details
+            </motion.button>
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Shop() {
+  return (
+    <div className="shop-page" id="shop-section">
       <main className="shop-content">
-        {/* Visible, high-contrast typography headers */}
-        <div className="shop-header">
-          <h1 className="shop-title">The Complete Rotation</h1>
-          <p className="shop-subtitle">Pick your colorway. Make your statement.</p>
-        </div>
+        <motion.div
+          className="shop-header"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <h1 className="shop-title">available shoes</h1>
+          <p className="shop-subtitle">Pick your favorite pair.</p>
+        </motion.div>
 
-        {/* The responsive layout grid containing all cards */}
-        <div className="product-grid">
-          {products.map((product) => (
-            <div key={product.id} className="product-card">
-              
-              {/* Image background wrapper with matching subtle ambient color tint */}
-              <div className="product-image-wrapper" style={{ '--card-glow': product.glow }}>
-                <img src={product.image} alt={product.name} className="product-image" />
-              </div>
-
-              {/* Product metadata details */}
-              <div className="product-details">
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-price">{product.price}</p>
-                <button className="btn-buy">View Details</button>
-              </div>
-
-            </div>
+        <motion.div
+          className="product-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
           ))}
-        </div>
+        </motion.div>
       </main>
     </div>
   );

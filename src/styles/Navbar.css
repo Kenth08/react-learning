@@ -103,3 +103,54 @@
   background-color: #121214;
   color: #ffffff;
 }
+
+/* ==========================================================================
+   4. CART BUTTON + BADGE
+   ========================================================================== */
+.nav-cart-btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background 0.2s;
+}
+
+.nav-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ffffff;
+  color: #111114;
+  font-size: 0.65rem;
+  font-weight: 900;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.navbar.scrolled .nav-cart-btn {
+  background: rgba(18, 18, 20, 0.08);
+  border-color: rgba(18, 18, 20, 0.2);
+  color: #121214;
+}
+
+.navbar.scrolled .cart-badge {
+  background: #121214;
+  color: #ffffff;
+}
