@@ -1,63 +1,105 @@
+/* ==========================================================================
+   1. CORE FIXED NAV RECTANGLE
+   ========================================================================== */
 .navbar {
   width: 100%;
-  padding: 24px 5%; /* Matches the 5% side padding of your hero section perfectly */
+  padding: 24px calc(5% + var(--removed-body-scrollbar-space, 0px)) 24px 5%; 
   display: flex;
   justify-content: space-between;
   align-items: center;
   
-  /* CHANGED: Made background completely transparent & removed the gray border line */
-  background: transparent; 
-  border-bottom: none;
-  
-  /* CRITICAL: Positions the navbar on top of your background color instead of pushing it down */
-  position: absolute;
+  position: fixed;   
   top: 0;
   left: 0;
-  z-index: 100; 
+  z-index: 1000;     
   box-sizing: border-box;
+
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px); 
+  transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 
+/* ==========================================================================
+   2. ELEMENT LINK TRACKS (DARK MODE DEFAULT / HOME PAGE)
+   ========================================================================== */
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 900;
-  /* CHANGED: Swapped green out for crisp white to look premium against all background themes */
   color: #ffffff; 
   letter-spacing: -1px;
+  transition: color 0.2s ease;
 }
 
 .navbar-links {
   display: flex;
-  gap: 2rem; /* Wider gaps look more modern */
+  gap: 2rem; 
   align-items: center;
+  margin-right: 20px;
 }
 
 .navbar-links a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8); /* Faint off-white so it sits softly in the background */
+  color: rgba(255, 255, 255, 0.8); 
   font-weight: 600;
   font-size: 0.95rem;
   transition: color 0.2s ease;
 }
 
-/* Subtle link hover state */
 .navbar-links a:hover {
   color: #ffffff; 
 }
 
-/* Premium capsule styling for the Login Link */
 .navbar-links .nav-login-btn {
   background-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   padding: 8px 24px;
   border-radius: 50px;
-  backdrop-filter: blur(10px); /* Gives it a premium frosted-glass effect */
+  backdrop-filter: blur(10px); 
   border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .navbar-links .nav-login-btn:hover {
   background-color: #ffffff;
-  /* Note: Your landing page dynamic background variable (--dynamic-bg) transfers automatically here! */
   color: var(--dynamic-bg); 
   transform: scale(1.03);
+}
+
+/* ==========================================================================
+   3. ACTIVE SCROLLED THEME OVERRIDES (SINGLE-PAGE TRANSITION)
+   ========================================================================== */
+
+/* Active when scrolling down over the white shop area */
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Switches the brand logo black */
+.navbar.scrolled .navbar-brand {
+  color: #121214;
+}
+
+/* Switches text links to dark slate */
+.navbar.scrolled .navbar-links a {
+  color: rgba(18, 18, 20, 0.8);
+}
+
+.navbar.scrolled .navbar-links a:hover {
+  color: #000000;
+}
+
+/* Remakes the login pill button to stand out over light backgrounds */
+.navbar.scrolled .nav-login-btn {
+  background-color: transparent;
+  color: #121214;
+  border-color: rgba(18, 18, 20, 0.3);
+}
+
+.navbar.scrolled .nav-login-btn:hover {
+  background-color: #121214;
+  color: #ffffff;
 }

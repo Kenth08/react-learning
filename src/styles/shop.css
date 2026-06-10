@@ -1,26 +1,26 @@
 /* ==========================================================================
-   1. MAIN CONTROLLERS & PAGE COLOR SCHEMES
+   1. MAIN CONTROLLERS & PAGE COLOR SCHEMES (MINIMALIST WHITE)
    ========================================================================== */
 .shop-page {
   min-height: 100vh;
-  background-color: #0c0c0e; 
-  color: #ffffff;
+  background-color: #ffffff; /* Clean solid white studio background */
+  color: #121214;            /* Dark charcoal text for readability */
   width: 100%;
   box-sizing: border-box;
-
 }
+
 .shop-content {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 140px 6% 60px 6%; /* Shifts content safely below your fixed Navbar */
+  padding: 140px 6% 60px 6%; /* Shifts content safely below fixed Navbar */
 }
 
 /* ==========================================================================
-   2. TYPOGRAPHY HEADERS (HIGH-CONTRAST VISIBILITY)
+   2. TYPOGRAPHY HEADERS (HIGH-CONTRAST DARK TEXT)
    ========================================================================== */
 .shop-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .shop-title {
@@ -29,17 +29,17 @@
   text-transform: uppercase;
   letter-spacing: -1px;
   margin: 0 0 0.5rem 0;
-  color: #ffffff; /* Explicitly forces white text color */
+  color: #121214; /* Striking dark text color */
 }
 
 .shop-subtitle {
   font-size: 1.1rem;
-  color: #a1a1aa; /* Smooth zinc-gray subtext */
+  color: #64748b; /* Clean slate-gray subtext */
   margin: 0;
 }
 
 /* ==========================================================================
-   3. RESPONSIVE GRID GRID MATRIX
+   3. RESPONSIVE GRID MATRIX
    ========================================================================== */
 .product-grid {
   display: grid;
@@ -48,11 +48,11 @@
 }
 
 /* ==========================================================================
-   4. LUXURY CARD BLOCKS
+   4. EDITORIAL LIGHT CARDS
    ========================================================================== */
 .product-card {
-  background: #141417;
-  border: 1px solid #232329;
+  background: #f8fafc;       /* Soft off-white canvas card background */
+  border: 1px solid #e2e8f0; /* Crisp light gray border line */
   border-radius: 28px;
   padding: 1.25rem;
   display: flex;
@@ -62,13 +62,13 @@
 
 .product-card:hover {
   transform: translateY(-8px);
-  border-color: #3f3f46;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+  border-color: #cbd5e1;
+  box-shadow: 0 20px 30px rgba(15, 23, 42, 0.06); /* Lightweight luxury drop shadow */
 }
 
 /* Sneaker display window inside the card */
 .product-image-wrapper {
-  background: var(--card-glow); /* Injected dynamically from your JSX array */
+  background: var(--card-glow); /* Dynamically scales your vibrant hex transparency tags */
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
@@ -82,12 +82,12 @@
 .product-image {
   width: 85%;
   object-fit: contain;
-  filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0px 12px 20px rgba(0, 0, 0, 0.12)); /* Soft image shadow for light mode */
   transition: transform 0.3s ease;
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.06) rotate(-4deg); /* Beautiful reactive shift when card is hovered */
+  transform: scale(1.06) rotate(-4deg); /* Fluid reactive motion step on card hover */
 }
 
 /* ==========================================================================
@@ -103,31 +103,78 @@
   font-size: 1.15rem;
   font-weight: 700;
   margin: 0 0 0.25rem 0;
-  color: #ffffff;
+  color: #121214;
 }
 
 .product-price {
   font-size: 1.05rem;
-  color: #a1a1aa;
+  color: #64748b;
   font-weight: 500;
   margin: 0 0 1.25rem 0;
 }
 
 .btn-buy {
   width: 100%;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #121214; /* Matte black checkout trigger button */
+  color: #ffffff;            /* High contrast white inner text label */
   border: none;
-  padding: 12px;
+  padding: 14px;
   font-size: 0.95rem;
   font-weight: 700;
   border-radius: 50px;
   cursor: pointer;
-  margin-top: auto; /* Pushes the checkout trigger button cleanly to the card bottom line */
+  margin-top: auto;          /* Pushes button cleanly to the card base */
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-buy:hover {
-  background-color: #e4e4e7;
+  background-color: #000000;
   transform: scale(1.02);
+}
+
+/* ==========================================================================
+   6. GLOBAL APPLICATION HEADER LINK PATCH OVERRIDES
+   ========================================================================== */
+/* Dynamically recolors header elements black strictly when inside shop-page */
+.shop-page .navbar, 
+.shop-page .nav-links a, 
+.shop-page .logo {
+  color: #121214 !important;
+}
+
+/* Syncs your login header action button frame with the light studio look */
+.shop-page .btn-login {
+  border-color: #121214 !important;
+  color: #121214 !important;
+}
+
+.shop-page .btn-login:hover {
+  background-color: #121214 !important;
+  color: #ffffff !important;
+}
+/* ==========================================================================
+   DYNAMICS LOOK FOR LIGHT THEMES (SHOP PAGE PATCH)
+   ========================================================================== */
+
+/* 1. Targets the logo text inside the shop */
+.shop-page .logo {
+  color: #121214 !important;
+}
+
+/* 2. Targets the plain text links (Home, About, Services) */
+.shop-page .nav-links a {
+  color: #121214 !important;
+}
+
+/* 3. Targets your Login pill button so it stays crisp and readable */
+.shop-page .btn-login {
+  border-color: #121214 !important;
+  color: #121214 !important;
+  background-color: transparent !important;
+}
+
+/* 4. Keeps the login hover effect working perfectly in the light theme */
+.shop-page .btn-login:hover {
+  background-color: #121214 !important;
+  color: #ffffff !important;
 }

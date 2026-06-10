@@ -14,17 +14,23 @@ export default function Shop() {
   // GLOBAL RESET OVERRIDE: Forces the browser window to allow scrolling
   // ==========================================================================
   useEffect(() => {
-    // Overrides the LandingPage global locks instantly when entering the shop
+    // 1. Calculate the exact width of the scrollbar dynamically
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    
+    // 2. Inject that pixel value into a CSS variable so the fixed navbar can read it
+    document.documentElement.style.setProperty('--removed-body-scrollbar-space', `${scrollbarWidth}px`);
+
+    // 3. Unfreeze the screen views
     document.documentElement.style.overflow = "unset";
     document.body.style.overflow = "unset";
 
-    // Clean-up function: Re-locks the window automatically if they head back home
+    // Clean-up function: Reset everything smoothly if they head back home
     return () => {
+      document.documentElement.style.removeProperty('--removed-body-scrollbar-space');
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     };
   }, []);
-
   // Array holding all 4 sneaker models
   const products = [
     { id: 1, name: "Air Jordan 1 Low 'Bred'", price: "$115", image: redShoe, glow: "rgba(217, 4, 41, 0.15)" },
